@@ -108,8 +108,8 @@ router.get('/viz/:state', authRequired, function (req, res) {
 
   dsModel
     .getViz(state)
-    .then( async (response) => {
-      await dsModel.add(response.data[0])
+    .then(async (response) => {
+      await dsModel.add(response.data[0]);
       res.status(200).json(response.data[0]);
     })
     .catch((error) => {
