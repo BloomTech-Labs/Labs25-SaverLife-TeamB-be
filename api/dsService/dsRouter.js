@@ -118,31 +118,4 @@ router.get('/viz/:state', authRequired, function (req, res) {
     });
 });
 
-// router.get('/viz/:state', async (req, res) => {
-//   try {
-//   const state = String(req.params.state);
-
-//   const dsData = await dsModel.getViz(state)
-//   // await dsModel.add(dsData)
-//   // console.log(dsData)
-//   res.status(200).json(dsData.data)
-//   } catch(error){
-//     console.error(error)
-//     res.status(500).json(error)
-//   }
-// });
-
-// router.get('/dsviz/:state', function (req, res) {
-//   const state = String(req.params.state);
-//   dsModel
-//     .findById(state)
-//     .then((response) => {
-//       res.status(200).json(response);
-//     })
-//     .catch((error) => {
-//       console.error(error);
-//       res.status(500).json(error);
-//     });
-// });
-
 module.exports = router;
