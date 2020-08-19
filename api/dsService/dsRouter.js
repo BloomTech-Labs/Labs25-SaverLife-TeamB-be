@@ -118,4 +118,32 @@ router.get('/viz/:state', authRequired, function (req, res) {
     });
 });
 
+router.get('/:user_id/moneyflow', authRequired, function (req, res) {
+  const user_id = String(req.params.user_id);
+
+  dsModel
+    .getMoneyFlow(user_id)
+    .then((response) => {
+      res.status(200).json(response);
+    })
+    .catch((error) => {
+      console.error(error);
+      res.status(500).json(error);
+    });
+});
+
+router.post('/spending', authRequired, function (req, res) {
+  const request = String(req.body);
+
+  dsModel
+    .spendingPost(request)
+    .then((response) => {
+      res.status(200).json(response);
+    })
+    .catch((error) => {
+      console.error(error);
+      res.status(500).json(error);
+    });
+});
+
 module.exports = router;
