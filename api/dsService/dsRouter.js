@@ -138,7 +138,7 @@ router.post('/spending', authRequired, function (req, res) {
   dsModel
     .spendingPost(request)
     .then((response) => {
-      res.status(200).json(response);
+      res.status(201).json(response);
     })
     .catch((error) => {
       console.error(error);
