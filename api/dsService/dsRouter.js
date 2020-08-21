@@ -124,7 +124,7 @@ router.get('/:user_id/moneyflow', authRequired, function (req, res) {
   dsModel
     .getMoneyFlow(user_id)
     .then((response) => {
-      res.status(200).json(response);
+      res.status(200).json(response.data);
     })
     .catch((error) => {
       console.error(error);
@@ -133,12 +133,12 @@ router.get('/:user_id/moneyflow', authRequired, function (req, res) {
 });
 
 router.post('/spending', authRequired, function (req, res) {
-  const request = String(req.body);
+  const request = req.body;
 
   dsModel
     .spendingPost(request)
     .then((response) => {
-      res.status(201).json(response);
+      res.status(201).json(response.data);
     })
     .catch((error) => {
       console.error(error);
