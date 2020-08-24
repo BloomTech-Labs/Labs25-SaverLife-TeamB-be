@@ -11,8 +11,8 @@ const getViz = (user_id) => {
   return dsClient.get(`/viz/${user_id}`);
 };
 
-const getMoneyFlow = (user_id) => {
-  return dsClient.get(`/${user_id}/moneyflow`);
+const moneyflowPost = (request) => {
+  return dsClient.post(`moneyflow`, request);
 };
 
 const spendingPost = (request) => {
@@ -23,4 +23,4 @@ function add(data) {
   return db('graph_data').update(data);
 }
 
-module.exports = { getPrediction, getViz, add, spendingPost, getMoneyFlow };
+module.exports = { getPrediction, getViz, add, spendingPost, moneyflowPost };

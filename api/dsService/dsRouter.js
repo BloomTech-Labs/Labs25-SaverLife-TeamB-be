@@ -118,11 +118,11 @@ router.get('/viz/:state', authRequired, function (req, res) {
     });
 });
 
-router.get('/:user_id/moneyflow', authRequired, function (req, res) {
-  const user_id = String(req.params.user_id);
+router.post('/moneyflow', authRequired, function (req, res) {
+  const request = req.body;
 
   dsModel
-    .getMoneyFlow(user_id)
+    .moneyflowPost(request)
     .then((response) => {
       res.status(200).json(response.data);
     })
