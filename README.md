@@ -1,107 +1,118 @@
-# Basic node API
+# API Documentation
 
-[![Maintainability](https://api.codeclimate.com/v1/badges/65e3a684cd28554d0383/maintainability)](https://codeclimate.com/github/Lambda-School-Labs/labs-api-starter/maintainability)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/65e3a684cd28554d0383/test_coverage)](https://codeclimate.com/github/Lambda-School-Labs/labs-api-starter/test_coverage)
+#### 1️⃣ Backend delpoyed at https://saverlife-b-api.herokuapp.com <br>
 
-> **Disclaimer:** This application is currently in Beta mode and is not ready for
-> production. Please use at your own risk as things will change almost daily.
+## 1️⃣ Getting started
 
-The following examples can be found in this project template.
+To get the server running locally:
 
-- CRUD routes for a single resource
-- A Knex model providing CRUD methods for DB operations
-- Some route tests with mocks on the database calls
-- Okta authentication verification middleware
-- eslint setup and prettier formating.
-- Jest coverage setup
-- Inline Swagger docs with a live route at `/api-docs`
-- Github workflow config setup to run linting, tests and upload coverage to code climate
-- docker-compose file for spinning up postgresql db. (Win10 Home requires WSL)
+- Clone this repo
+- **npm install** to install all required dependencies
+- **npm run** to start the local server
+- **npm tests** to start server using testing environment
 
-## Requirements
+### Express - Node.js - Postgres
 
-All [Labs Engineering Standards](https://labs.lambdaschool.com/topics/node-js/) must be followed.
+-    We're using Express and Node.js because we want to build a RESTful API.
+-    Postgres allows us to use jsonb data types in our tables.
 
-## API doc
+## 2️⃣ Endpoints
 
-All routes can be viewed in the [/api-docs route](https:// /api-docs/)
-of your deploy (or locally).
+#### Data Science Routes
 
-- https://localhost:8005/api-docs
+| Method | Endpoint                | Access Control | Description                                  |
+| ------ | ----------------------- | --------------                       | -------------------------------------------- |
+| POST   | `/moneyflow`| All users with linked bank accounts. | Send User ID and time period, and recieve a plotly object showing money flow. |
+| POST   | `/spending` | All users with linked bank accounts. | Send User ID, graph type and time period, and recieve a plotly object showing spending habits. |
 
-Swagger docs are created using open api v3 notations. The docs are found inline
-on the router files in `api/**/*Router.js` and use the yaml notation format.
-The root of the docs is in `config/jsdoc.js` using the json format.
+#### Profile Routes
 
-The following libraries have been used to build and serve the swagger docs live.
+The user is offloaded by Okta.
 
-- [express-ui](https://github.com/scottie1984/swagger-ui-express)
-- [swagger-jsdoc](https://github.com/Surnet/swagger-jsdoc)
+# Data Model
 
-## Getting Started
+#### 2️⃣ Profiles
 
-### Enviornment Variables
+---
 
-- `PORT` - API port (optional, but helpful with FE running as well)
-- `DS_API_URL` - URL to a data science api. (eg. https://ds-bw-test.herokuapp.com/)
-- `DS_API_TOKEN` - authorization header token for data science api (eg. SUPERSECRET)
-- `DATABASE_URL` - connection string for postgres database
-- `OKTA_URL_ISSUER` - The complete issuer URL for verifying okta access tokens. `https://example.okta.com/oauth2/default`
-- `OKTA_CLIENT_ID` - the okta client ID.
+```
+{
+  id: integer, auto increments
+  email: STRING
+  name: STRING
+  avatarUrl: STRING
+  timestamps: true, true
+}
+```
 
-See .env.sample for example values
+#### Graph Data
 
-### Setup postgres
+---
 
-There are 3 options to get postgresql installed locally [Choose one]:
+```
+{
+  id: integer, auto increments
+  data: jsonb[]
+  layout: jsonb
+}
+```
 
-1. Use docker. [Install](https://docs.docker.com/get-docker/) for your platform
-    - run: `docker-compose up -d` to start up the postgresql database and pgadmin.
-    - Open a browser to [pgadmin](http://localhost:5050/) and you should see the Dev server already defined.
-    - If you need to start over you will need to delete the folder `$ rm -rf ./data/pg` as this is where all of the server data is stored.
-      - if the database `api-dev` was not created then start over.
-2. Download and install postgresql directly from the [main site](https://www.postgresql.org/download/)
-    - make note of the port, username and password you use to setup the database.
-    - Connect your client to the server manually using the values previously mentioned
-    - You will need to create a database manually using a client.
-    - Make sure to update the DATABASE_URL connection string with the values for username/password, databasename and server port (if not 5432).
-3. Setup a free account at [ElephantSQL](https://www.elephantsql.com/plans.html)
-    - Sign up for a free `Tiney Turtle` plan
-    - copy the URL to the DATABASE_URL .env variable
-    - make sure to add `?ssl=true` to the end of this url
+## 2️⃣ Actions
 
-### Setup the application
+`spendingPost(response)` -> Send User ID, graph type and time period, and recieve a plotly object showing spending habits.
 
-- For Labs projects, clone the repo. Otherwise you can create a new repo using this as a template.
+`moneyFlowPost(response)` -> Send User ID and time period, and recieve a plotly object showing money flow.
 
-  - **note** please [be sure to set your remote](https://help.github.jp/enterprise/2.11/user/articles/changing-a-remote-s-url/) for this repo to point to your Labs Team Repository.
-  - Alternatively you can clone this repo then remove the git folder to initialize a new repo
+## 3️⃣ Environment Variables
 
-    ```bash
-    > git clone --depth=1 --branch=main git@github.com:Lambda-School-Labs/labs-api-starter.git NEW-REPO-NAME
-    > rm -rf ./NEW-REPO-NAME/.git
-    ```
+In order for the app to function correctly, the user must set up their own environment variables.
 
-- run: `npm install` to download all dependencies.
-- run: `cp .env.sample .env` and update the enviornment variables to match your local setup.
-- run: `npm run knex migrate:latest` to create the starting schema.
-- run: `npm run knex seed:run` to populate your db with some data.
-- run: `npm run tests` to confirm all is setup and tests pass.
-- run: `npm run watch:dev` to start nodemon in local dev enviornment.
+create a .env file that includes the following:
 
-> Make sure to update the details of the app name, description and version in
-> the `package.json` and `config/jsdoc.js` files.
-
+   * PORT=8000
+   * DS_API_URL=http://localhost:8002
+   * DS_API_TOKEN=SUPERSECRET
+   * DATABASE_URL="postgres://(Your Postgres DB)"
+   * OKTA_URL_ISSUER=https://example.okta.com/oauth2/default
+   * OKTA_CLIENT_ID=example
+    
 ## Contributing
 
-### ESLint and prettier
+When contributing to this repository, please first discuss the change you wish to make via issue, email, or any other method with the owners of this repository before making a change.
 
-[ESLint](https://eslint.org/) and [prettier](https://prettier.io/) are already
-configured with Lambda Labs standards and ready to go. These must be ran from
-the CLI prior to commiting code in the following ways:
+Please note we have a [code of conduct](./code_of_conduct.md). Please follow it in all your interactions with the project.
 
-- `npm run lint` to view all purposed fixes.
-- `npm run lint:fix` to apply fixes to eslint issues.
-- `npm run format` to apply the standards defined by eslint/prettier config.
+### Issue/Bug Request
 
-Alternatively you can install plugins for your editor of choice.
+ **If you are having an issue with the existing project code, please submit a bug report under the following guidelines:**
+ - Check first to see if your issue has already been reported.
+ - Check to see if the issue has recently been fixed by attempting to reproduce the issue using the latest master branch in the repository.
+ - Create a live example of the problem.
+ - Submit a detailed bug report including your environment & browser, steps to reproduce the issue, actual and expected outcomes,  where you believe the issue is originating from, and any potential solutions you have considered.
+
+### Feature Requests
+
+We would love to hear from you about new features which would improve this app and further the aims of our project. Please provide as much detail and information as possible to show us why you think your new feature should be implemented.
+
+### Pull Requests
+
+If you have developed a patch, bug fix, or new feature that would improve this app, please submit a pull request. It is best to communicate your ideas with the developers first before investing a great deal of time into a pull request to ensure that it will mesh smoothly with the project.
+
+Remember that this project is licensed under the MIT license, and by submitting a pull request, you agree that your work will be, too.
+
+#### Pull Request Guidelines
+
+- Ensure any install or build dependencies are removed before the end of the layer when doing a build.
+- Update the README.md with details of changes to the interface, including new plist variables, exposed ports, useful file locations and container parameters.
+- Ensure that your code conforms to our existing code conventions and test coverage.
+- Include the relevant issue number, if applicable.
+- You may merge the Pull Request in once you have the sign-off of two other developers, or if you do not have permission to do that, you may request the second reviewer to merge it for you.
+
+### Attribution
+
+These contribution guidelines have been adapted from [this good-Contributing.md-template](https://gist.github.com/PurpleBooth/b24679402957c63ec426).
+
+## Documentation
+
+See [Frontend Documentation](🚫link to your frontend readme here) for details on the fronend of our project.
+🚫 Add DS iOS and/or Andriod links here if applicable.
