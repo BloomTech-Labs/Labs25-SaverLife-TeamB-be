@@ -146,4 +146,20 @@ router.post('/spending', authRequired, function (req, res) {
     });
 });
 
+router.post('/futureBudget', authRequired, function (req, res) {
+  const request = req.body;
+
+  dsModel
+    .futureBudgetPost(request)
+    .then((response) => {
+      res.status(201).json(response.data);
+    })
+    .catch((error) => {
+      console.error(error);
+      res.status(500).json(error);
+    });
+});
+
+
+
 module.exports = router;
