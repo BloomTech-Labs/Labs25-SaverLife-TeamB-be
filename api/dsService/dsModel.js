@@ -23,7 +23,23 @@ function add(data) {
   return db('graph_data').update(data);
 }
 
-module.exports = { getPrediction, getViz, add, spendingPost, moneyflowPost };
+const futureBudgetPost = (request) => {
+  return dsClient.post(`/futureBudget`, request);
+};
+
+const getCurrentMonthSpending = (user_id) => {
+  return dsClient.get(`${user_id}/current_month_spending`);
+};
+
+module.exports = {
+  getPrediction,
+  getViz,
+  add,
+  spendingPost,
+  moneyflowPost,
+  futureBudgetPost,
+  getCurrentMonthSpending,
+};
 
 // Have an array for each (spending/moneyflow) of the data objects and a cache limit(i.e. '4')
 // When data is accessed save it to the head of the appropriate array (spending or moneyflow)
@@ -43,7 +59,7 @@ module.exports = { getPrediction, getViz, add, spendingPost, moneyflowPost };
 
 // spendingLRUFunction(spendingCache, spendingCacheLimit, { data: 'some data 5' });
 
-// When getting data from backend, first check if its in the cache.
+// // When getting data from backend, first check if its in the cache.
 
 // for (let i = 0; i < spendingCache.length; i++){
 //   if (spendingCache[i].data.graph == request){
