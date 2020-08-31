@@ -5,7 +5,9 @@ exports.up = (knex) => {
       table.string('id').notNullable().unique().primary();
       table.string('email');
       table.string('name');
-      table.string('avatarUrl');
+      table.string('ds_id');
+      table.integer('monthly_savings_goal').defaultTo(null);
+      table.string('user_categories').defaultTo(null);
       table.timestamps(true, true);
     });
 };
