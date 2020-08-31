@@ -29,4 +29,20 @@ const remove = async (id) => {
   return await db('profiles').where({ id }).del();
 };
 
-module.exports = { findAll, findBy, findById, create, update, remove };
+const getId = (id) => {
+  return db('profiles').where({ id }).select('ds_id').first();
+};
+
+const add = (ds_id, item) => {
+  return db('profiles').where({ ds_id }).update(item);
+};
+module.exports = {
+  findAll,
+  findBy,
+  findById,
+  create,
+  update,
+  remove,
+  add,
+  getId,
+};

@@ -19,13 +19,13 @@ const spendingPost = (request) => {
   return dsClient.post(`/spending`, request);
 };
 
-function add(data) {
-  return db('graph_data').update(data);
-}
-
-const futureBudgetPost = (request) => {
-  return dsClient.post(`/futureBudget`, request);
+const futurebudgetPost = (request) => {
+  return dsClient.post('/future_budget', request);
 };
+
+function add(data) {
+  return db('profiles').update(data);
+}
 
 const getCurrentMonthSpending = (user_id) => {
   return dsClient.get(`${user_id}/current_month_spending`);
@@ -37,7 +37,7 @@ module.exports = {
   add,
   spendingPost,
   moneyflowPost,
-  futureBudgetPost,
+  futurebudgetPost,
   getCurrentMonthSpending,
 };
 
