@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const dsModel = require('./dsModel');
 const authRequired = require('../middleware/authRequired');
-
+const Profiles = require('../profile/profileModel');
 /**
  * @swagger
  * /data/predict/{x1}/{x2}/{x3}:
@@ -118,32 +118,83 @@ router.get('/viz/:state', authRequired, function (req, res) {
     });
 });
 
-router.post('/moneyflow', authRequired, function (req, res) {
-  const request = req.body;
+router.post('/moneyflow', authRequired, async (req, res) => {
+  try {
+    // Calling getId method from profileModel to get ds_id from postgres
+    // The getId method returns an object e.g.{ds_id: '...'}
+    // Dot notation is needed to access it
+    console.log(req.body.user_ID);
+    const id = await Profiles.getId(req.body.user_ID);
+    console.log(id);
+    req.body.user_ID = id.ds_id;
+    console.log(req.body);
 
-  dsModel
-    .moneyflowPost(request)
-    .then((response) => {
-      res.status(200).json(response.data);
-    })
-    .catch((error) => {
-      console.error(error);
-      res.status(500).json(error);
-    });
+    // Calling moneyflowPost method from dsModel
+    // Sending the request body now updated with the ds_id as a parameter
+    const response = await dsModel.moneyflowPost(req.body);
+    res.status(201).json(response.data);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json(error);
+  }
 });
 
-router.post('/spending', authRequired, function (req, res) {
-  const request = req.body;
+router.post('/spending', authRequired, async (req, res) => {
+  try {
+    // Calling getId method from profileModel to get ds_id from postgres
+    // The getId method returns an object e.g.{ds_id: '...'}
+    // Dot notation is needed to access it
+    console.log(req.body.user_ID);
+    const id = await Profiles.getId(req.body.user_ID);
+    console.log(id);
+    req.body.user_ID = id.ds_id;
+    console.log(req.body);
 
-  dsModel
-    .spendingPost(request)
-    .then((response) => {
-      res.status(201).json(response.data);
-    })
-    .catch((error) => {
-      console.error(error);
-      res.status(500).json(error);
+    // Calling spendingPost method from dsModel
+    // Sending the request body now updated with the ds_id as a parameter
+    const response = await dsModel.spendingPost(req.body);
+    res.status(201).json(response.data);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json(error);
+  }
+});
+
+router.post('/futureBudget', authRequired, async (req, res) => {
+  try {
+    // Calling getId method from profileModel to get ds_id from postgres
+    // The getId method returns an object e.g.{ds_id: '...'}
+    // Dot notation is needed to access it
+    console.log(req.body);
+    const id = await Profiles.getId(req.body.user_id);
+    console.log(id.ds_id);
+    // Setting user_Id in request body to ds_id
+    req.body.user_id = id.ds_id;
+    // Declaring variables from body
+    const monthly_savings_goal = req.body.monthly_savings_goal;
+    const user_categories = req.body.placeholder;
+
+    // Updating the monthly_savings_goal and user_categories column in postgres
+    // Using add method from profileModel to update the columns by ds_id
+    // And declaring changes_to... variable to track if the columns were updated
+    const changes_to_goal = await Profiles.add(id.ds_id, {
+      monthly_savings_goal,
     });
+    console.log(changes_to_goal);
+
+    const changes_to_categories = await Profiles.add(id.ds_id, {
+      user_categories,
+    });
+    console.log(changes_to_categories);
+
+    // Calling futurebudgetPost method from dsModel
+    // Sending the request body now updated with the ds_id as a parameter
+    const response = await dsModel.futurebudgetPost(req.body);
+    res.status(201).json(response.data);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json(error);
+  }
 });
 
 module.exports = router;

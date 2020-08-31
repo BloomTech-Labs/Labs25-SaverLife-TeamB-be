@@ -19,11 +19,22 @@ const spendingPost = (request) => {
   return dsClient.post(`/spending`, request);
 };
 
+const futurebudgetPost = (request) => {
+  return dsClient.post('/future_budget', request);
+};
+
 function add(data) {
-  return db('graph_data').update(data);
+  return db('profiles').update(data);
 }
 
-module.exports = { getPrediction, getViz, add, spendingPost, moneyflowPost };
+module.exports = {
+  getPrediction,
+  getViz,
+  add,
+  spendingPost,
+  moneyflowPost,
+  futurebudgetPost,
+};
 
 // Have an array for each (spending/moneyflow) of the data objects and a cache limit(i.e. '4')
 // When data is accessed save it to the head of the appropriate array (spending or moneyflow)
