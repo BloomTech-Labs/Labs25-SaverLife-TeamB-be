@@ -27,6 +27,10 @@ function add(data) {
   return db('profiles').update(data);
 }
 
+const getCurrentMonthSpending = (user_id) => {
+  return dsClient.get(`${user_id}/current_month_spending`);
+};
+
 module.exports = {
   getPrediction,
   getViz,
@@ -34,6 +38,7 @@ module.exports = {
   spendingPost,
   moneyflowPost,
   futurebudgetPost,
+  getCurrentMonthSpending,
 };
 
 // Have an array for each (spending/moneyflow) of the data objects and a cache limit(i.e. '4')
@@ -54,7 +59,7 @@ module.exports = {
 
 // spendingLRUFunction(spendingCache, spendingCacheLimit, { data: 'some data 5' });
 
-// When getting data from backend, first check if its in the cache.
+// // When getting data from backend, first check if its in the cache.
 
 // for (let i = 0; i < spendingCache.length; i++){
 //   if (spendingCache[i].data.graph == request){
