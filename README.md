@@ -1,3 +1,8 @@
+# SaverLife
+<p align="center">
+<img src="https://www.saverlife.org/assets/logo-saverlife-a4b213a1d9e8e51559d7f70d9f479f1473f536e12c8c4543654d5b3964004b0f.svg">
+</p>
+
 # API Documentation
 
 #### 1️⃣ Backend delpoyed at https://saverlife-b-api.herokuapp.com <br>
