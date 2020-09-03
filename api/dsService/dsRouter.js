@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const dsModel = require('./dsModel');
 const authRequired = require('../middleware/authRequired');
+const checkCache = require('../middleware/checkCache');
+const saveDataToCache = require('../utils/saveDataToCache');
 const Profiles = require('../profile/profileModel');
 /**
  * @swagger
@@ -60,6 +62,7 @@ const Profiles = require('../profile/profileModel');
  *      500:
  *        description: 'Error making prediction'
  */
+
 router.get('/predict/:x1/:x2/:3', authRequired, function (req, res) {
   const x1 = String(req.params.x1);
   const x2 = String(req.params.x2);
@@ -71,7 +74,7 @@ router.get('/predict/:x1/:x2/:3', authRequired, function (req, res) {
       res.status(200).json(response.data);
     })
     .catch((error) => {
-      console.error(error);
+      // console.error(error);
       res.status(500).json(error);
     });
 });
@@ -113,28 +116,26 @@ router.get('/viz/:state', authRequired, function (req, res) {
       res.status(200).json(response.data[0]);
     })
     .catch((error) => {
-      console.error(error);
+      // console.error(error);
       res.status(500).json(error);
     });
 });
 
-router.post('/moneyflow', authRequired, async (req, res) => {
+router.post('/moneyflow', authRequired, checkCache, async (req, res) => {
   try {
     // Calling getId method from profileModel to get ds_id from postgres
     // The getId method returns an object e.g.{ds_id: '...'}
     // Dot notation is needed to access it
-    console.log(req.body.user_ID);
     const id = await Profiles.getId(req.body.user_ID);
-    console.log(id);
+    const cacheId = req.body.user_ID;
     req.body.user_ID = id.ds_id;
-    console.log(req.body);
 
     // Calling moneyflowPost method from dsModel
     // Sending the request body now updated with the ds_id as a parameter
     const response = await dsModel.moneyflowPost(req.body);
     res.status(201).json(response.data);
+    saveDataToCache(cacheId, response);
   } catch (error) {
-    console.error(error);
     res.status(500).json(error);
   }
 });
@@ -155,7 +156,7 @@ router.post('/spending', authRequired, async (req, res) => {
     const response = await dsModel.spendingPost(req.body);
     res.status(201).json(response.data);
   } catch (error) {
-    console.error(error);
+    // console.error(error);
     res.status(500).json(error);
   }
 });
@@ -192,7 +193,7 @@ router.post('/futureBudget', authRequired, async (req, res) => {
     const response = await dsModel.futurebudgetPost(req.body);
     res.status(201).json(response.data);
   } catch (error) {
-    console.error(error);
+    // console.error(error);
     res.status(500).json(error);
   }
 });
