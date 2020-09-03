@@ -171,8 +171,8 @@ router.post('/futureBudget', authRequired, async (req, res) => {
     // Setting user_Id in request body to ds_id
     req.body.user_id = id.ds_id;
     // Declaring variables from body
-    const monthly_savings_goal = req.body.monthly_savings_goal;
-    const user_categories = req.body.placeholder;
+    // const monthly_savings_goal = req.body.monthly_savings_goal;
+    // const user_categories = req.body.placeholder;
 
     // Updating the monthly_savings_goal and user_categories column in postgres
     // Using add method from profileModel to update the columns by ds_id
