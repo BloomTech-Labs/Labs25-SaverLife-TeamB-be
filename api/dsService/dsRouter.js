@@ -177,14 +177,14 @@ router.post('/futureBudget', authRequired, async (req, res) => {
     // Updating the monthly_savings_goal and user_categories column in postgres
     // Using add method from profileModel to update the columns by ds_id
     // And declaring changes_to... variable to track if the columns were updated
-    const changes_to_goal = await Profiles.add(id.ds_id, {
-      monthly_savings_goal,
-    });
+    // const changes_to_goal = await Profiles.add(id.ds_id, {
+    //   monthly_savings_goal,
+    // });
     // console.log(changes_to_goal);
 
-    const changes_to_categories = await Profiles.add(id.ds_id, {
-      user_categories,
-    });
+    // const changes_to_categories = await Profiles.add(id.ds_id, {
+    //   user_categories,
+    // });
     // console.log(changes_to_categories);
 
     // Calling futurebudgetPost method from dsModel
