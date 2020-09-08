@@ -5,7 +5,7 @@ const client = redis.createClient(REDIS_PORT);
 const saveDataToCache = async (requestBody, res) => {
   try {
     const request = requestBody;
-    console.log('\nKey caching this request:\n', request, '\n');
+    console.log('\n Caching request in Redis Cache:\n');
     const response = JSON.stringify(res.data);
     client.setex(request, 14400, response);
   } catch (error) {

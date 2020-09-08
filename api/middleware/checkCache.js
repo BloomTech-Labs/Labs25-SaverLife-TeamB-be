@@ -9,10 +9,10 @@ const checkCache = (req, res, next) => {
   client.get(request, (err, data) => {
     if (err) throw err;
     if (data !== null) {
-      console.log('\nData found!\n', data, '\n');
+      console.log('\nData found in Redis Cache!\n');
       res.send(data);
     } else {
-      console.log('\n Data not found!\n');
+      console.log('\n Data not found in Redis Cache!\n');
       next();
     }
   });
