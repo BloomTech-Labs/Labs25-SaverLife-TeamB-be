@@ -133,8 +133,8 @@ router.post('/moneyflow', authRequired, checkCache, async (req, res) => {
     // Calling moneyflowPost method from dsModel
     // Sending the request body now updated with the ds_id as a parameter
     const response = await dsModel.moneyflowPost(req.body);
-    res.status(201).json(response.data);
     saveDataToCache(originalRequest, response);
+    res.status(201).json(response.data);
   } catch (error) {
     res.status(500).json(error);
   }
@@ -152,8 +152,8 @@ router.post('/spending', authRequired, checkCache, async (req, res) => {
     // Calling spendingPost method from dsModel
     // Sending the request body now updated with the ds_id as a parameter
     const response = await dsModel.spendingPost(req.body);
-    res.status(201).json(response.data);
     saveDataToCache(originalRequest, response);
+    res.status(201).json(response.data);
   } catch (error) {
     // console.error(error);
     res.status(500).json(error);
@@ -171,20 +171,20 @@ router.post('/futureBudget', authRequired, async (req, res) => {
     // Setting user_Id in request body to ds_id
     req.body.user_id = id.ds_id;
     // Declaring variables from body
-    const monthly_savings_goal = req.body.monthly_savings_goal;
-    const user_categories = req.body.placeholder;
+    // const monthly_savings_goal = req.body.monthly_savings_goal;
+    // const user_categories = req.body.placeholder;
 
     // Updating the monthly_savings_goal and user_categories column in postgres
     // Using add method from profileModel to update the columns by ds_id
     // And declaring changes_to... variable to track if the columns were updated
-    const changes_to_goal = await Profiles.add(id.ds_id, {
-      monthly_savings_goal,
-    });
+    // const changes_to_goal = await Profiles.add(id.ds_id, {
+    //   monthly_savings_goal,
+    // });
     // console.log(changes_to_goal);
 
-    const changes_to_categories = await Profiles.add(id.ds_id, {
-      user_categories,
-    });
+    // const changes_to_categories = await Profiles.add(id.ds_id, {
+    //   user_categories,
+    // });
     // console.log(changes_to_categories);
 
     // Calling futurebudgetPost method from dsModel
