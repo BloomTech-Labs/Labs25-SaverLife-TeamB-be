@@ -133,8 +133,8 @@ router.post('/moneyflow', authRequired, checkCache, async (req, res) => {
     // Calling moneyflowPost method from dsModel
     // Sending the request body now updated with the ds_id as a parameter
     const response = await dsModel.moneyflowPost(req.body);
-    res.status(201).json(response.data);
     saveDataToCache(originalRequest, response);
+    res.status(201).json(response.data);
   } catch (error) {
     res.status(500).json(error);
   }
@@ -152,8 +152,8 @@ router.post('/spending', authRequired, checkCache, async (req, res) => {
     // Calling spendingPost method from dsModel
     // Sending the request body now updated with the ds_id as a parameter
     const response = await dsModel.spendingPost(req.body);
-    res.status(201).json(response.data);
     saveDataToCache(originalRequest, response);
+    res.status(201).json(response.data);
   } catch (error) {
     // console.error(error);
     res.status(500).json(error);
