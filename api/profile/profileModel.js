@@ -36,6 +36,13 @@ const getId = (id) => {
 const add = (ds_id, item) => {
   return db('profiles').where({ ds_id }).update(item);
 };
+
+const getById = (id) => {
+  return db('profiles')
+    .where({ id })
+    .select('monthly_savings_goal', 'user_categories')
+    .first();
+};
 module.exports = {
   findAll,
   findBy,
@@ -45,4 +52,5 @@ module.exports = {
   remove,
   add,
   getId,
+  getById,
 };

@@ -196,19 +196,32 @@ router.post('/futureBudget', authRequired, async (req, res) => {
     res.status(500).json(error);
   }
 });
-
-router.get(`/:user_id/currentMonthSpending`, authRequired, function (req, res) {
-  const user_id = String(req.params.user_id);
-
-  dsModel
-    .getCurrentMonthSpending(user_id)
-    .then((response) => {
-      res.status(201).json(response.data);
-    })
-    .catch((error) => {
-      // console.error(error);
-      res.status(500).json(error);
-    });
+router.get('/futureBudget', authRequired, async (req, res) => {
+  try {
+    const budget = await Profiles.getById(req.headers.user_id);
+    const id = await Profiles.getId(req.headers.user_id);
+    const user_id = id.ds_id;
+    budget['placeholder'] = budget['user_categories'];
+    delete budget['user_categories'];
+    const body = { ...budget, user_id };
+    const response = await dsModel.futurebudgetPost(body);
+    const modResponse = Object.entries(response.data);
+    res.status(201).json(modResponse);
+  } catch (error) {
+    // console.error(error);
+    res.status(500).json(error);
+  }
+});
+router.get(`/currentMonthSpending`, authRequired, async (req, res) => {
+  try {
+    const id = await Profiles.getId(req.headers.user_id);
+    const user_id = id.ds_id;
+    const response = await dsModel.getCurrentMonthSpending(user_id);
+    const modResponse = Object.entries(response.data);
+    res.status(200).json(modResponse);
+  } catch (error) {
+    res.status(500).json(error);
+  }
 });
 
 module.exports = router;
