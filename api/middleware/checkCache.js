@@ -1,5 +1,5 @@
 const redis = require('redis');
-const REDIS_PORT = process.env.REDIS_PORT || 6379;
+const REDIS_PORT = process.env.REDIS_URL || 6379;
 const client = redis.createClient(REDIS_PORT);
 // This function checks the cache to see if requested data is in it.
 // If it's in the cache,
