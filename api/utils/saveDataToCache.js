@@ -1,13 +1,13 @@
 const redis = require('redis');
-const REDIS_PORT = process.env.REDIS_PORT || 6379;
+const REDIS_PORT = process.env.REDIS_URL || 6379;
 const client = redis.createClient(REDIS_PORT);
 // This function saves data into a cache.
-const saveDataToCache = async (user_ID, res) => {
+const saveDataToCache = async (requestBody, res) => {
   try {
-    console.log('Caching Data...');
-    const user = user_ID;
-    const response = res.data;
-    client.setex(user, 100000, response);
+    const request = requestBody;
+    console.log('\nCaching this request(KEY):\n', request, '\n');
+    const response = JSON.stringify(res.data);
+    client.setex(request, 14400, response);
   } catch (error) {
     console.log(error);
     res.status(500);

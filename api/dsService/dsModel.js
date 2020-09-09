@@ -28,7 +28,7 @@ function add(data) {
 }
 
 const getCurrentMonthSpending = (user_id) => {
-  return dsClient.get(`${user_id}/current_month_spending`);
+  return dsClient.get(`/current_month_spending`, { params: { user_id } });
 };
 
 module.exports = {
