@@ -29,18 +29,18 @@ const remove = async (id) => {
   return await db('profiles').where({ id }).del();
 };
 
-const getId = (id) => {
+const getDsId = (id) => {
   return db('profiles').where({ id }).select('ds_id').first();
 };
 
-const add = (ds_id, item) => {
+const updateProfileById = (ds_id, item) => {
   return db('profiles').where({ ds_id }).update(item);
 };
 
-const getById = (id) => {
+const getBudgetInfoByUserId = (id) => {
   return db('profiles')
     .where({ id })
-    .select('monthly_savings_goal', 'user_categories')
+    .select('monthly_savings_goal', 'placeholder')
     .first();
 };
 module.exports = {
@@ -50,7 +50,7 @@ module.exports = {
   create,
   update,
   remove,
-  add,
-  getId,
-  getById,
+  updateProfileById,
+  getDsId,
+  getBudgetInfoByUserId,
 };

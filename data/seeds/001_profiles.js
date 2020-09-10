@@ -14,18 +14,24 @@ const profiles = [
     email: 'llama001@maildrop.cc',
     name: 'Kevin',
     ds_id: '1635ob1dkQIz1QMjLmBpt0E36VyM96ImeyrgZ',
+    monthly_savings_goal: 400,
+    placeholder: 'Auto, Financial, Food',
   },
   {
     id: '0oalwu29a8yYgVlp24x6',
     email: 'llama002@maildrop.cc',
-    name: 'Test002 User',
-    ds_id: 'Plaid_ID 2',
+    name: 'James',
+    ds_id: 'mEQmv8ybP1t3o3bYnKzwFqP5jad1KKUM8N06o',
+    monthly_savings_goal: 250,
+    placeholder: 'Shopping, Transportation, Financial',
   },
   {
     id: '00ultx74kMUmEW8054x6',
     email: 'llama003@maildrop.cc',
-    name: 'Test003 User',
-    ds_id: 'Plaid_ID 3',
+    name: 'Alice',
+    ds_id: 'vq4mMRdZLeFon7bK63jefLOomaRPYBCmAJP6g',
+    monthly_savings_goal: 550,
+    placeholder: 'Utilities, Food, Transportation',
   },
 ];
 
