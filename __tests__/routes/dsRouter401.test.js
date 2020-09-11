@@ -1,6 +1,9 @@
 const supertest = require('supertest');
 const server = require('../../api/app.js');
 
+// const redis = require("redis-mock"),
+//     client = redis.createClient();
+
 // A 401 status code means request has not been applied
 // because it lacks valid authentication credentials for the target resource
 // If tests fail with 404 or 500 it means authentication is not

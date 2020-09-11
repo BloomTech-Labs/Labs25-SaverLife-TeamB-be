@@ -1,7 +1,7 @@
 const axios = require('axios');
 const dsConfig = require('../../config/dsConfig');
 const dsClient = axios.create(dsConfig);
-const db = require('../../data/db-config');
+// const db = require('../../data/db-config');
 
 const moneyFlowPost = (request) => {
   return dsClient.post(`moneyflow`, request);
