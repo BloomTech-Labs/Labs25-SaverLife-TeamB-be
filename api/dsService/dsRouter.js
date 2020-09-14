@@ -93,17 +93,19 @@ const Profiles = require('../profile/profileModel');
 
 router.post('/moneyflow', authRequired, checkCache, async (req, res) => {
   try {
-    // Calling getDsId method from profileModel to get ds_id from postgres
-    // The getId method returns an object e.g.{ds_id: '...'}
-    // Dot notation is needed to access it
     const originalRequest = JSON.stringify(req.body);
-    const { ds_id } = await Profiles.getDsId(req.body.user_ID);
-    req.body.user_ID = ds_id;
 
-    // Calling moneyflowPost method from dsModel
-    // Sending the request body now updated with the ds_id as a parameter
+    // getting Bank Account Id from database with user id as an argument
+    const { bank_account_id } = await Profiles.getBankAccountId(
+      req.body.user_id
+    );
+    req.body.bank_account_id = bank_account_id;
+
+    // Sending the request body that is now updated with the bank_account_id
     const response = await dsModel.moneyFlowPost(req.body);
+
     saveDataToCache(originalRequest, response);
+
     res.status(201).json(response.data);
   } catch (error) {
     res.status(500).json(error);
@@ -112,28 +114,28 @@ router.post('/moneyflow', authRequired, checkCache, async (req, res) => {
 
 router.post('/spending', authRequired, checkCache, async (req, res) => {
   try {
-    // Calling getDsId method from profileModel to get ds_id from postgres
-    // The getId method returns an object e.g.{ds_id: '...'}
-    // Dot notation is needed to access it
     const originalRequest = JSON.stringify(req.body);
-    const { ds_id } = await Profiles.getDsId(req.body.user_ID);
-    req.body.user_ID = ds_id;
 
-    // Calling spendingPost method from dsModel
-    // Sending the request body now updated with the ds_id as a parameter
+    // getting Bank Account Id from database with user id as an argument
+    const { bank_account_id } = await Profiles.getBankAccountId(
+      req.body.user_id
+    );
+    req.body.bank_account_id = bank_account_id;
+
+    // Sending the request body that is now updated with the bank_account_id
     const response = await dsModel.spendingPost(req.body);
+
     saveDataToCache(originalRequest, response);
+
     res.status(201).json(response.data);
   } catch (error) {
-    // console.error(error);
     res.status(500).json(error);
   }
 });
 
 router.post('/futureBudget', authRequired, async (req, res) => {
   try {
-    // Updating the monthly_savings_goal and placeholder(discretionary_categories) column in postgres
-    // Using updateProfileById method from profileModel to update the columns by user_id and column name
+    // Updating the monthly_savings_goal and placeholder(discretionary_categories) column in database
     const changes_to_goal = await Profiles.updateProfileById(
       req.body.user_id,
       req.body.monthly_savings_goal
@@ -154,22 +156,33 @@ router.post('/futureBudget', authRequired, async (req, res) => {
   }
 });
 
-router.get('/futureBudget', authRequired, async (req, res) => {
+router.get('/futureBudget', authRequired, checkCache, async (req, res) => {
   try {
-    let data = {};
+    const originalRequest = JSON.stringify(req.body);
 
+    let data = {};
+    //Budget info is the integer monthly_saving_goal and a string placeholder
+    // e.g {monthly_saving_goal: 400, placeholder: 'Auto, Financial, Food'}
     const budgetInfo = await Profiles.getBudgetInfoByUserId(
       req.headers.user_id
     );
-    // Calling getDsId method from profileModel to get ds_id from postgres
-    const { ds_id } = await Profiles.getDsId(req.headers.user_id);
-    // Setting user_Id to ds_id
-    const user_id = ds_id;
-    const body = { ...budgetInfo, user_id };
+    // getting Bank Account Id from database with user id as an argument
+    const { bank_account_id } = await Profiles.getBankAccountId(
+      req.headers.user_id
+    );
+    // adding bank account id to budget info object
+    const budgetInfoAndId = { ...budgetInfo, bank_account_id };
 
-    const maxSpendingRes = await dsModel.futureBudgetPost(body);
+    const maxSpendingRes = await dsModel.futureBudgetPost(budgetInfoAndId);
 
-    const currSpendingRes = await dsModel.getCurrentMonthSpending(user_id);
+    const currSpendingRes = await dsModel.getCurrentMonthSpending(
+      bank_account_id
+    );
+
+    // Creating a object with categories as the key and objects as values
+    // The objects have max spending and current spending as keys with respective values
+    // e.g. { Auto: { maxSpending: 55, currSpending: 0 },
+    //        Financial: { maxSpending: 265, currSpending: 151.42 }, ... etc }
 
     for (const key in maxSpendingRes.data) {
       data[key] = {
@@ -177,10 +190,10 @@ router.get('/futureBudget', authRequired, async (req, res) => {
         currSpending: currSpendingRes.data[key],
       };
     }
+    saveDataToCache(originalRequest, currSpendingRes);
 
     res.status(201).json(data);
   } catch (error) {
-    console.error(error);
     res.status(500).json(error);
   }
 });

@@ -15,8 +15,8 @@ const futureBudgetPost = (request) => {
   return dsClient.post('/future_budget', request);
 };
 
-const getCurrentMonthSpending = (user_id) => {
-  return dsClient.get(`/current_month_spending`, { params: { user_id } });
+const getCurrentMonthSpending = (bank_account_id) => {
+  return dsClient.get(`/current_month_spending/${bank_account_id}`);
 };
 
 module.exports = {
