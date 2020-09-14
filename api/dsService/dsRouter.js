@@ -156,10 +156,8 @@ router.post('/futureBudget', authRequired, async (req, res) => {
   }
 });
 
-router.get('/futureBudget', authRequired, checkCache, async (req, res) => {
+router.get('/futureBudget', authRequired, async (req, res) => {
   try {
-    const originalRequest = JSON.stringify(req.body);
-
     let data = {};
     //Budget info is the integer monthly_saving_goal and a string placeholder
     // e.g {monthly_saving_goal: 400, placeholder: 'Auto, Financial, Food'}
@@ -190,7 +188,6 @@ router.get('/futureBudget', authRequired, checkCache, async (req, res) => {
         currSpending: currSpendingRes.data[key],
       };
     }
-    saveDataToCache(originalRequest, currSpendingRes);
 
     res.status(201).json(data);
   } catch (error) {
