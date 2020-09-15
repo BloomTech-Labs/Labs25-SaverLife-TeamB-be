@@ -18,10 +18,10 @@ const profiles = [
     placeholder: 'Auto, Financial, Food',
   },
   {
-    id: '0oalwu29a8yYgVlp24x6',
+    id: '00ultwew80Onb2vOT4x6',
     email: 'llama002@maildrop.cc',
     name: 'James',
-    bank_account_id: 161223,
+    bank_account_id: 3127,
     monthly_savings_goal: 250,
     placeholder: 'Shopping, Transportation, Financial',
   },
