@@ -5,7 +5,7 @@ exports.up = (knex) => {
       table.string('id').notNullable().unique().primary();
       table.string('email');
       table.string('name');
-      table.string('ds_id');
+      table.integer('bank_account_id');
       table.integer('monthly_savings_goal');
       table.string('placeholder');
       table.timestamps(true, true);
