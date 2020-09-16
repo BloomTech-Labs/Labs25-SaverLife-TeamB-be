@@ -3,6 +3,7 @@ const router = express.Router();
 const dsModel = require('./dsModel');
 const authRequired = require('../middleware/authRequired');
 const checkCache = require('../middleware/checkCache');
+const checkGetCache = require('../middleware/checkGetCache');
 const saveDataToCache = require('../utils/saveDataToCache');
 const Profiles = require('../profile/profileModel');
 /**
@@ -104,7 +105,7 @@ router.post('/moneyflow', authRequired, checkCache, async (req, res) => {
     // Sending the request body that is now updated with the bank_account_id
     const response = await dsModel.moneyFlowPost(req.body);
 
-    saveDataToCache(originalRequest, response);
+    saveDataToCache(originalRequest, response.data);
 
     res.status(201).json(response.data);
   } catch (error) {
@@ -125,8 +126,8 @@ router.post('/spending', authRequired, checkCache, async (req, res) => {
     // Sending the request body that is now updated with the bank_account_id
     const response = await dsModel.spendingPost(req.body);
 
-    saveDataToCache(originalRequest, response);
-
+    saveDataToCache(originalRequest, response.data);
+  
     res.status(201).json(response.data);
   } catch (error) {
     res.status(500).json(error);
@@ -156,7 +157,7 @@ router.post('/futureBudget', authRequired, async (req, res) => {
   }
 });
 
-router.get('/futureBudget', authRequired, async (req, res) => {
+router.get('/futureBudget', authRequired, checkGetCache, async (req, res) => {
   try {
     let data = {};
     //Budget info is the integer monthly_saving_goal and a string placeholder
@@ -189,6 +190,10 @@ router.get('/futureBudget', authRequired, async (req, res) => {
       };
     }
 
+    const stringRequest = JSON.stringify(budgetInfoAndId)
+    const response = data
+
+    saveDataToCache(stringRequest, response);
     res.status(201).json(data);
   } catch (error) {
     res.status(500).json(error);
