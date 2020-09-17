@@ -30,7 +30,6 @@ router.get('/', function (req, res) {
 
 const cors = require('cors'); //cors needed for sendgrid
 router.use(cors());
-var dotenv = require('dotenv');
 
 router.get('/refer', (req, res) => {
   res.render('refer');
@@ -39,9 +38,9 @@ router.get('/refer', (req, res) => {
 const sgMail = require('@sendgrid/mail');
 sgMail.setApiKey(process.env.SENDGRID_API_KEY); //from sendgrid.env not .env
 
-router.post('/refer', async (req, res) => {
+router.post('/refer', async (req) => {
   const msg = {
-    to: req.body.to,   //so email can be input into the form 
+    to: req.body.to, //so email can be input into the form 
     from: 'Saverlifemail@gmail.com',
     subject: 'You have been invited to join SaverLife',
     text: 'Please checkout SaverLife and signup! https://b.saverlife.dev/login',
