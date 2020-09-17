@@ -34,6 +34,10 @@ router.use(cors());
 
 var dotenv = require('dotenv');
 
+router.get('/refer', (req, res) => {
+  res.render('refer');
+});
+
 const sgMail = require('@sendgrid/mail');
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
