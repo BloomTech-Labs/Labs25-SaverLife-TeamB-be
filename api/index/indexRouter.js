@@ -28,4 +28,13 @@ router.get('/', function (req, res) {
   res.status(200).json({ api: 'up', timestamp: Date.now() });
 });
 
+const cors = require('cors');
+
+router.use(cors()); 
+
+var dotenv = require('dotenv');
+
+const sgMail = require('@sendgrid/mail');
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+
 module.exports = router;
