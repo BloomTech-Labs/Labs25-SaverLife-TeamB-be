@@ -40,7 +40,7 @@ sgMail.setApiKey(process.env.SENDGRID_API_KEY); //from sendgrid.env not .env
 
 router.post('/refer', async (req) => {
   const msg = {
-    to: req.body.to, //so email can be input into the form 
+    to: req.body.to, //so email can be input into the form
     from: 'Saverlifemail@gmail.com',
     subject: 'You have been invited to join SaverLife',
     text: 'Please checkout SaverLife and signup! https://b.saverlife.dev/login',
