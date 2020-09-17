@@ -189,8 +189,8 @@ router.get('/futureBudget', authRequired, checkGetCache, async (req, res) => {
       };
     }
 
-    const stringRequest = JSON.stringify(budgetInfoAndId)
-    const response = data
+    const stringRequest = JSON.stringify(budgetInfoAndId);
+    const response = data;
 
     saveDataToCache(stringRequest, response);
     res.status(201).json(data);
