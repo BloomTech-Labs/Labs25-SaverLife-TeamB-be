@@ -127,7 +127,6 @@ router.post('/spending', authRequired, checkCache, async (req, res) => {
     const response = await dsModel.spendingPost(req.body);
 
     saveDataToCache(originalRequest, response.data);
-  
     res.status(201).json(response.data);
   } catch (error) {
     res.status(500).json(error);
