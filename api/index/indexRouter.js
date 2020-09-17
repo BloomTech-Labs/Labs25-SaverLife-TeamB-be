@@ -41,13 +41,13 @@ router.get('/refer', (req, res) => {
 const sgMail = require('@sendgrid/mail');
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
-router.post('/contact', (req, res) => {
+router.post('/refer', async (req, res) => {
   const msg = {
-    to: 'test@example.com',
-    from: 'test@example.com',
-    subject: 'Sending with Twilio SendGrid is Fun',
-    text: 'and easy to do anywhere, even with Node.js',
-    html: '<strong>and easy to do anywhere, even with Node.js</strong>',
+    to: req.body.to,
+    from: 'Saverlifemail@gmail.com',
+    subject: 'You have been invited to join SaverLife',
+    text: 'Please checkout SaverLife and signup! https://b.saverlife.dev/login',
+    html: '<strong>Please checkout SaverLife and signup! https://b.saverlife.dev/login</strong>',
   };
   });
 
