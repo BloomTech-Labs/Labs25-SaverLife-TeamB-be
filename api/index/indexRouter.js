@@ -49,6 +49,16 @@ router.post('/refer', async (req, res) => {
     text: 'Please checkout SaverLife and signup! https://b.saverlife.dev/login',
     html: '<strong>Please checkout SaverLife and signup! https://b.saverlife.dev/login</strong>',
   };
+  try {
+    await sgMail.send(msg);
+} catch (error) {
+    console.error(error);
+
+    if (error.response) {
+        console.error(error.response.body)
+    }
+}
+
   });
 
 module.exports = router;
