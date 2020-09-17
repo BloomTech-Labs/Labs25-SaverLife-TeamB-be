@@ -28,10 +28,8 @@ router.get('/', function (req, res) {
   res.status(200).json({ api: 'up', timestamp: Date.now() });
 });
 
-const cors = require('cors');
-
-router.use(cors()); 
-
+const cors = require('cors'); //cors needed for sendgrid
+router.use(cors());
 var dotenv = require('dotenv');
 
 router.get('/refer', (req, res) => {
@@ -39,26 +37,26 @@ router.get('/refer', (req, res) => {
 });
 
 const sgMail = require('@sendgrid/mail');
-sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+sgMail.setApiKey(process.env.SENDGRID_API_KEY); //from sendgrid.env not .env
 
 router.post('/refer', async (req, res) => {
   const msg = {
-    to: req.body.to,
+    to: req.body.to,   //so email can be input into the form 
     from: 'Saverlifemail@gmail.com',
     subject: 'You have been invited to join SaverLife',
     text: 'Please checkout SaverLife and signup! https://b.saverlife.dev/login',
-    html: '<strong>Please checkout SaverLife and signup! https://b.saverlife.dev/login</strong>',
+    html:
+      '<strong>Please checkout SaverLife and signup! https://b.saverlife.dev/login</strong>',
   };
   try {
-    await sgMail.send(msg);
-} catch (error) {
+    await sgMail.send(msg); //await needed or will recieve promise error
+  } catch (error) {
     console.error(error);
 
     if (error.response) {
-        console.error(error.response.body)
+      console.error(error.response.body);
     }
-}
-
-  });
+  }
+});
 
 module.exports = router;
