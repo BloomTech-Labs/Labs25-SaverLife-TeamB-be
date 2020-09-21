@@ -7,7 +7,7 @@ exports.up = (knex) => {
       table.string('name');
       table.integer('bank_account_id');
       table.integer('monthly_savings_goal');
-      table.string('placeholder');
+      table.specificType('categories', 'text[]');
       table.timestamps(true, true);
     });
 };

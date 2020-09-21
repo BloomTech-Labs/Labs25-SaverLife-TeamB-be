@@ -1,3 +1,4 @@
+const { json } = require('express');
 const db = require('../../data/db-config');
 
 const findAll = async () => {
@@ -34,13 +35,13 @@ const getBankAccountId = (id) => {
 };
 
 const updateProfileById = (id, item) => {
-  return db('profiles').where(id).update(item);
+  return db('profiles').where({ id }).update(item);
 };
 
 const getBudgetInfoByUserId = (id) => {
   return db('profiles')
     .where({ id })
-    .select('monthly_savings_goal', 'placeholder')
+    .select('monthly_savings_goal', 'categories')
     .first();
 };
 module.exports = {
