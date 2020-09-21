@@ -135,23 +135,42 @@ router.post('/spending', authRequired, checkCache, async (req, res) => {
 
 router.post('/futureBudget', authRequired, async (req, res) => {
   try {
-    // Updating the monthly_savings_goal and placeholder(discretionary_categories) column in database
-    const changes_to_goal = await Profiles.updateProfileById(
-      req.body.user_id,
-      req.body.monthly_savings_goal
-    );
+    const categories = [];
 
-    const changes_to_categories = await Profiles.updateProfileById(
-      req.body.user_id,
-      req.body.placeholder
+    const { bank_account_id } = await Profiles.getBankAccountId(
+      req.body.user_id
     );
+    req.body.bank_account_id = bank_account_id;
 
-    res
-      .status(201)
-      .json(
-        `${changes_to_goal} monthly savings goal column updated and ${changes_to_categories} Discretionary Categories column updated`
+    const maxSpendingRes = await dsModel.futureBudgetPost(req.body);
+
+    for (const key in maxSpendingRes.data) {
+      categories.push(key);
+    }
+
+    const monthly_savings_goal = req.body.monthly_savings_goal;
+
+    if (maxSpendingRes) {
+      // Updating the monthly_savings_goal and placeholder(discretionary_categories) column in database
+      const changes_to_goal = await Profiles.updateProfileById(
+        req.body.user_id,
+        { monthly_savings_goal }
       );
+      const changes_to_categories = await Profiles.updateProfileById(
+        req.body.user_id,
+        { categories }
+      );
+
+      res
+        .status(201)
+        .json(
+          `${changes_to_goal} monthly savings goal column updated and ${changes_to_categories} categories column updated`
+        );
+    } else {
+      res.status(400).json('Could not retrieve budget information');
+    }
   } catch (error) {
+    console.log(error);
     res.status(500).json(error);
   }
 });
@@ -169,14 +188,18 @@ router.get('/futureBudget', authRequired, checkGetCache, async (req, res) => {
       req.headers.user_id
     );
     // adding bank account id to budget info object
-    const budgetInfoAndId = { ...budgetInfo, bank_account_id };
+    const budgetInfoAndId = {
+      ...budgetInfo,
+      bank_account_id,
+      placeholder: 'banjo',
+    };
 
     const maxSpendingRes = await dsModel.futureBudgetPost(budgetInfoAndId);
 
     const currSpendingRes = await dsModel.getCurrentMonthSpending(
-      bank_account_id
+      bank_account_id,
+      budgetInfo.categories
     );
-
     // Creating a object with categories as the key and objects as values
     // The objects have max spending and current spending as keys with respective values
     // e.g. { Auto: { maxSpending: 55, currSpending: 0 },
