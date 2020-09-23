@@ -222,4 +222,19 @@ router.get('/futureBudget', authRequired, checkGetCache, async (req, res) => {
   }
 });
 
+router.get('/budgetGoal', authRequired, async (req, res) => {
+  try {
+    const budgetInfo = await Profiles.getBudgetInfoByUserId(
+      req.headers.user_id
+    );
+    if (budgetInfo) {
+      res.status(200).json(budgetInfo.monthly_savings_goal);
+    } else {
+      res.status(404).json(budgetInfo);
+    }
+  } catch {
+    res.status(500).json(error);
+  }
+});
+
 module.exports = router;
