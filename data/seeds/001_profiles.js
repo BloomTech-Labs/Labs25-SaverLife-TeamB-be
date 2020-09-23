@@ -14,15 +14,6 @@ const profiles = [
     email: 'llama001@maildrop.cc',
     name: 'Kevin',
     bank_account_id: 131952,
-    monthly_savings_goal: 50,
-    categories: [
-      'Financial',
-      'Food',
-      'Shopping',
-      'Transportation',
-      'Utilities',
-      'Misc.',
-    ],
   },
   {
     id: '00ultwew80Onb2vOT4x6',
