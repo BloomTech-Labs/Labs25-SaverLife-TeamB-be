@@ -39,6 +39,20 @@ A cross functional REST API built to interact with a Data Science API to help us
 
 ---
 
+## Features Overview
+
+---
+
+[Plotly](https://plotly.com/javascript/react/)
+
+[Redis](https://redis.io/)
+
+[SendGrid](https://sendgrid.com/)
+
+[React Swipeable](https://www.npmjs.com/package/react-swipeable)
+
+---
+
 # API Documentation
 
 #### 1️⃣ Backend delpoyed at https://saverlife-b-api.herokuapp.com <br>
