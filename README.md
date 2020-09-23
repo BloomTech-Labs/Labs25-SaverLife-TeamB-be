@@ -33,6 +33,12 @@
 
 ---
 
+## SaverLife Description
+
+A cross functional REST API built to interact with a Data Science API to help users save their first $400.
+
+---
+
 # API Documentation
 
 #### 1️⃣ Backend delpoyed at https://saverlife-b-api.herokuapp.com <br>
