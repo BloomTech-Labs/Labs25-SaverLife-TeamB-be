@@ -21,6 +21,38 @@
 | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/harrison-kang/) | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/dougcohen3/) |             [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/ky1e-ty1er/)              |                                                 
 ---
 
+## Project Overview
+
+---
+
+[Trello Board](https://trello.com/b/D0v4C41S/labs25saverlifetony)
+
+[Road Map](https://www.notion.so/SaverLife-Roadmap-Student-Facing-5238b8df94734b6d9ede07b8388a32b6)
+
+[UX Design](https://whimsical.com/4d38YVdA4UymYhW6S8m31n)
+
+---
+
+## SaverLife Description
+
+A cross functional REST API built to interact with a Data Science API to help users save their first $400.
+
+---
+
+## Features Overview
+
+---
+
+[Plotly](https://plotly.com/javascript/react/)
+
+[Redis](https://redis.io/)
+
+[SendGrid](https://sendgrid.com/)
+
+[React Swipeable](https://www.npmjs.com/package/react-swipeable)
+
+---
+
 # API Documentation
 
 #### 1️⃣ Backend delpoyed at https://saverlife-b-api.herokuapp.com <br>
