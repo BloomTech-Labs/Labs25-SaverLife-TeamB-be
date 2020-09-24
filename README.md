@@ -140,6 +140,11 @@ The user is offloaded by Okta.
 
 `moneyFlowPost(response)` -> Send User ID and time period, and recieve a plotly object showing money flow.
 
+# SendGrid
+| Method | Endpoint | Description |
+| ------- | --- | ----------- |
+| POST | /refer | Send a referral email |
+
 ## 3️⃣ Environment Variables
 
 In order for the app to function correctly, the user must set up their own environment variables.
