@@ -21,6 +21,40 @@
 | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/harrison-kang/) | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/dougcohen3/) |             [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/ky1e-ty1er/)              |                                                 
 ---
 
+## Repos
+
+---
+
+[Front End](https://github.com/Lambda-School-Labs/Labs25-SaverLife-TeamB-fe)
+
+[Back End](https://github.com/Lambda-School-Labs/Labs25-SaverLife-TeamB-be)
+
+[Data Science](https://github.com/Lambda-School-Labs/Labs25-SaverLife-TeamA-ds)
+
+---
+
+## Deployed
+
+---
+
+[Front End](https://b.saverlife.dev/)
+
+[Back End](https://saverlife-b-api.herokuapp.com/)
+
+[Data Science](http://saverlife-a.eba-atdfhqrp.us-east-1.elasticbeanstalk.com/)
+
+---
+
+## SaverLife Product Demo
+
+---
+
+This presentation of our application covers core features (Plotly, Redis, SendGrid, and React-Swipeable), design, use, and special thanks!
+
+[Presentation](https://www.youtube.com/watch?v=M6PMJDJtIzw&feature=youtu.be)
+
+---
+
 ## Project Overview
 
 ---
@@ -130,6 +164,11 @@ create a .env file that includes the following:
    * DATABASE_URL="postgres://(Your Postgres DB)"
    * OKTA_URL_ISSUER=https://example.okta.com/oauth2/default
    * OKTA_CLIENT_ID=example
+
+# SendGrid
+| Method | Endpoint | Description |
+| ------- | --- | ----------- |
+| POST | /refer | Send a referral email |
     
 ## Contributing
 
