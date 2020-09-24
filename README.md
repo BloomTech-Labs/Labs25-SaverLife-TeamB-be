@@ -140,11 +140,6 @@ The user is offloaded by Okta.
 
 `moneyFlowPost(response)` -> Send User ID and time period, and recieve a plotly object showing money flow.
 
-# SendGrid
-| Method | Endpoint | Description |
-| ------- | --- | ----------- |
-| POST | /refer | Send a referral email |
-
 ## 3️⃣ Environment Variables
 
 In order for the app to function correctly, the user must set up their own environment variables.
@@ -157,6 +152,11 @@ create a .env file that includes the following:
    * DATABASE_URL="postgres://(Your Postgres DB)"
    * OKTA_URL_ISSUER=https://example.okta.com/oauth2/default
    * OKTA_CLIENT_ID=example
+
+# SendGrid
+| Method | Endpoint | Description |
+| ------- | --- | ----------- |
+| POST | /refer | Send a referral email |
     
 ## Contributing
 
