@@ -33,6 +33,18 @@
 
 ---
 
+## Deployed
+
+---
+
+[Front End](https://b.saverlife.dev/)
+
+[Back End](https://saverlife-b-api.herokuapp.com/)
+
+[Data Science](http://saverlife-a.eba-atdfhqrp.us-east-1.elasticbeanstalk.com/)
+
+---
+
 ## SaverLife Product Demo
 
 ---
