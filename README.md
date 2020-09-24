@@ -21,6 +21,18 @@
 | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/harrison-kang/) | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/dougcohen3/) |             [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/ky1e-ty1er/)              |                                                 
 ---
 
+## Repos
+
+---
+
+[Front End](https://github.com/Lambda-School-Labs/Labs25-SaverLife-TeamB-fe)
+
+[Back End](https://github.com/Lambda-School-Labs/Labs25-SaverLife-TeamB-be)
+
+[Data Science](https://github.com/Lambda-School-Labs/Labs25-SaverLife-TeamA-ds)
+
+---
+
 ## Project Overview
 
 ---
