@@ -20,6 +20,15 @@
 |                       [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/HKang42)                       |                  [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/dougscohen)                   |                                [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/KyleTy1er)                                |                        
 | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/harrison-kang/) | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/dougcohen3/) |             [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/ky1e-ty1er/)              |                                                 
 ---
+## SaverLife Product Demo
+
+---
+
+This presentation of our application covers core features (Plotly, Redis, SendGrid, and React-Swipeable), design, use, and special thanks!
+
+[Presentation](https://www.youtube.com/watch?v=M6PMJDJtIzw&feature=youtu.be)
+
+---
 
 ## Repos
 
@@ -42,16 +51,6 @@
 [Back End](https://saverlife-b-api.herokuapp.com/)
 
 [Data Science](http://saverlife-a.eba-atdfhqrp.us-east-1.elasticbeanstalk.com/)
-
----
-
-## SaverLife Product Demo
-
----
-
-This presentation of our application covers core features (Plotly, Redis, SendGrid, and React-Swipeable), design, use, and special thanks!
-
-[Presentation](https://www.youtube.com/watch?v=M6PMJDJtIzw&feature=youtu.be)
 
 ---
 
